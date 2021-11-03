@@ -5,7 +5,7 @@ pygame.init()
 size = width, height = 16*12, 16*11
 black = 0, 0, 0
 screen = pygame.display.set_mode(size)
-
+#ASdasd
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: 
