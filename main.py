@@ -21,6 +21,7 @@ class Game:
                 Game.running = False
             Game.update()
             Game.render()
+            
 
     def render():
         for e in pygame.event.get(pygame.VIDEORESIZE):
@@ -30,6 +31,7 @@ class Game:
         scaled = pygame.transform.scale(Game.escene.surface, Game.screen_size)
         Game.display.blit(scaled, (0, 0))
         pygame.display.flip()
+
 
     def update():
         dt = Game.clock.get_time()
