@@ -7,6 +7,7 @@ class Events:
     def getEvents():
         Events.pulsadas = pygame.event.get(pygame.KEYDOWN)
         Events.quit = pygame.event.peek(pygame.QUIT)
+        if pygame.event.
 
     def isKeyDown(key):
         for k in Events.pulsadas:
