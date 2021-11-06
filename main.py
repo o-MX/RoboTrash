@@ -1,4 +1,5 @@
 import sys, pygame
+from typing import Text
 import utils as u
 import viewport as v
 import pantallas as p
