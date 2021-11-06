@@ -4,6 +4,9 @@ import utils
 
 class Inicio:
     def __init__(self):
+        #Adair
+        pygame.mixer.music.load('Assets/std_song.wav')
+        pygame.mixer.music.play(3)
         self.size = 192, 176
         self.surface = pygame.Surface(self.size)
         self.bg = pygame.image.load("./Assets/main_bg.png")
