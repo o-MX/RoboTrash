@@ -1,11 +1,12 @@
 import sys, pygame
+from typing import Text
 import pantallas
 import utils
 pygame.init()
 
 class Game:
     clock = pygame.time.Clock()
-    screen_size = 800, 800
+    screen_size = 800, 800 #800, 800
     bg = 0, 0, 0
     running = True
     display = None
@@ -34,5 +35,4 @@ class Game:
     def update():
         dt = Game.clock.get_time()
         Game.escene.update(dt)
-
 Game.run()
