@@ -2,7 +2,10 @@ import sys, pygame
 import pantallas
 import utils
 pygame.init()
-
+#Icono y Titulo
+pygame.display.set_caption("RoboTrash")
+icono=pygame.image.load("Assets/cabeza.png")
+pygame.display.set_icon(icono)
 class Game:
     clock = pygame.time.Clock()
     screen_size = 800, 800
