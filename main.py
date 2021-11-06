@@ -2,7 +2,10 @@ import sys, pygame
 import pantallas
 import utils
 pygame.init()
-
+#Icono y Titulo
+pygame.display.set_caption("RoboTrash")
+icono=pygame.image.load("Assets/cabeza.png")
+pygame.display.set_icon(icono)
 class Game:
     clock = pygame.time.Clock()
     size = 800, 800
@@ -22,10 +25,12 @@ class Game:
                 Game.running = False
             Game.update()
             Game.render()
+            
 
     def render():
         Game.display.fill(Game.bg)
         pygame.display.flip()
+
 
     def update():
         dt = Game.clock.get_time()

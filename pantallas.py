@@ -3,6 +3,9 @@ import utils
 
 class Inicio:
     def __init__(self):
+        #Adair
+        pygame.mixer.music.load('Assets/std_song.wav')
+        pygame.mixer.music.play(3)
         self.size = 192, 176
         self.ratio = self.size[0] / self.size[1]
         self.surface = pygame.Surface(self.size)
