@@ -1,10 +1,11 @@
 import pygame, sys
 
 class Events:
+    resize_event = []
     pulsadas = []
     quit = False
 
-    def getEvents():
+    def get():
         Events.pulsadas = pygame.event.get(pygame.KEYDOWN)
         Events.quit = pygame.event.peek(pygame.QUIT)
 
