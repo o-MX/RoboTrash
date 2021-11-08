@@ -1,31 +1,34 @@
 import pygame, sys
 import utils
 
-class Fit:
+class Viewport:
     def __init__(self, width, height):
         self.size = (width, height)
         self.surface = pygame.Surface(self.size)
-        self.ratio = self.surface.get_width() / self.surface.get_height()
+        self.ratio = width / height
 
     def flip(self, dest):
-        s = dest.get_size()
-        rs = s[0] / s[1]
-        pos = pygame.Rect(0, 0, 0, 0)
+        return self.surface
 
-        if rs > self.ratio:
-            pos.width, pos.height = self.size[0] * s[1] / self.size[1], s[1]
+class Fit(Viewport):
+    def __init__(self, width, height, center = True):
+        Viewport.__init__(self, width, height)
+
+    def flip(self, dest):
+        dest_size = dest.get_size()
+        dest_ratio = dest_size[0] / dest_size[1]
+        scale_rect = pygame.Rect(0, 0, 0, 0)
+
+        if dest_ratio > self.ratio:
+            scale_rect.width = self.size[0] * dest_size[1] / self.size[1]
+            scale_rect.height = dest_size[1]
         else:
-            pos.width, pos.height = s[0], self.size[1] * s[0] / self.size[0]
+            scale_rect.width = dest_size[0]
+            scale_rect.height = self.size[1] * dest_size[0] / self.size[0]
 
-        pos.x, pos.y = (s[0] - pos.width) / 2, (s[1] - pos.height) / 2
+        scale_rect.x = (dest_size[0] - scale_rect.width) / 2
+        scale_rect.y = (dest_size[1] - scale_rect.height) / 2
 
-        scaled = pygame.transform.scale(self.surface, (pos.width, pos.height))
-        dest.blit(scaled, pos)
-
-    def fit_(s, i):
-        rs = s.width / s.height
-        ri = i.width / i.height
-        if rs > ri:
-            return (i.width * s.height / i.height, s.height)
-        else:
-            return (s.width, i.height * s.width / i.width)
+        scaled = pygame.transform.scale(self.surface,
+            (scale_rect.width, scale_rect.height))
+        dest.blit(scaled, (scale_rect.x, scale_rect.y))
