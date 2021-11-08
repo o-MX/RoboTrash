@@ -15,9 +15,9 @@ class Inicio:
 
     def draw(self, vp):
         vp.blit(self.bg, (0, 0))
-        vp.blit(self.text, (80, 100))
-        vp.blit(self.title, (20, 20))
-        vp.blit(self.personje, (70,120))
+        vp.blit(self.text, (67, 100))
+        vp.blit(self.title, (20, 10))
+        vp.blit(self.personje, (75,125))
 
 
     def update(self, dt):
