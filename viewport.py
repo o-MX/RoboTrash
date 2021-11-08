@@ -21,3 +21,11 @@ class Fit:
 
         scaled = pygame.transform.scale(self.surface, (pos.width, pos.height))
         dest.blit(scaled, pos)
+
+    def fit_(s, i):
+        rs = s.width / s.height
+        ri = i.width / i.height
+        if rs > ri:
+            return (i.width * s.height / i.height, s.height)
+        else:
+            return (s.width, i.height * s.width / i.width)

@@ -1,7 +1,6 @@
 import pygame, sys
 
 class Events:
-    resize_event = []
     pulsadas = []
     quit = False
 
