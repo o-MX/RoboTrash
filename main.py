@@ -2,8 +2,10 @@ import sys, pygame
 from typing import Text
 import pantallas
 import eventhandler
+import assets
 pygame.init()
 eventhandler.init()
+assets.load()
 
 class RoboTrash:
     def __init__(self):

@@ -20,3 +20,14 @@ class TextoAnimado:
         if self.milisegundos > 1000:
             self.milisegundos = 0
             self.aumento = -self.aumento
+
+class HealthIndicator:
+    def __init___(self):
+        self.sprite = None
+
+class Heart:
+    def __init__(self, status):
+        self.set_health(status)
+
+    def set_health(self, status):
+        self.stats = status
