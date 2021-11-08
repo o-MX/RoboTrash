@@ -18,7 +18,7 @@ def load():
     global sixPixel_font, dogicapixel_font, pixelart_font
     # Load ingame fonts
     sixPixel_font = pygame.font.Font("./Assets/6px-Normal.ttf", 8)
-    dogicapixel_font = pygame.font.Font("./Assets/dogicapixel.ttf", 10)
+    dogicapixel_font = pygame.font.Font("./Assets/dogicapixel.ttf", 8)
     pixelart_font = pygame.font.Font("./Assets/pixelart.ttf", 8)
 
     global bg_game, bg_main
