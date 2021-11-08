@@ -39,7 +39,7 @@ class Partida:
     def draw(self, vp):
         vp.blit(self.bg, (0, 0))
         vp.blit(self.cabeza, (90, 100))
-        vp.blit(self.game_surface, (28, 14))
+        vp.blit(self.game_surface, (90, 14))
 
     def update(self, dt):
         pass
