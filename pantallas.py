@@ -1,45 +1,44 @@
 import pygame, sys
 import utils
+import eventhandler
+import viewport
+import assets
 
-class Inicio:
-    def __init__(self, game):
-        pygame.mixer.music.load('Assets/std_song.wav')
-        pygame.mixer.music.play(3)
+class Stage:
+    def __init__(self, viewport, game):
+        self.bg = (0, 0, 0)
+        self.viewport = viewport
+        self.surface = viewport.surface
         self.game = game
-        self.bg = pygame.image.load("./Assets/main_bg.png")
-        self.title = pygame.image.load("./Assets/title.png")
-        self.font = pygame.font.Font("./Assets/dogicapixel.ttf", 10)
-        self.text = self.font.render("Iniciar", False, (0, 0, 0))
-        self.personje = pygame.image.load("./Assets/cabeza.png") 
-        self.personje = pygame.transform.scale(self.personje, (35,28)) 
 
-    def draw(self, vp):
-        vp.blit(self.bg, (0, 0))
-        vp.blit(self.text, (67, 100))
-        vp.blit(self.title, (20, 10))
-        vp.blit(self.personje, (75,125))
-
+    def draw(self, sf):
+        sf.fill(self.bg)
 
     def update(self, dt):
-        if(utils.Events.isKeyDown(pygame.K_RETURN)):
-            self.game.changeStage(Partida(self.game))
+        pass
 
-class Partida:
+class Inicio(Stage):
     def __init__(self, game):
-        self.game = game
-        self.bg = pygame.image.load("./Assets/game_bg.png")
-        self.cabeza = pygame.image.load("./Assets/cabeza.png")
-        self.tileset = pygame.image.load("./Assets/game_tileset.png")
-        self.botes = pygame.image.load("./Assets/trash_cans.png")
-        self.basuras = pygame.image.load("./Assets/trash.png")
+        Stage.__init__(self, viewport.Fit(196, 176), game)
+        pygame.mixer.music.load('Assets/std_song.wav')
+        # pygame.mixer.music.play(3)
+        self.text = "Presiona Z para iniciar"
 
-        self.game_surface = pygame.Surface((80, 140))
-        self.stage = pygame.Surface((192, 176))
+        rendered_txt = assets.dogicapixel_font.render(self.text, False, 0)
+        self.surface.blit(rendered_txt, (20, 100))
+        self.surface.blit(assets.head_sprite, (75, 120))
 
-    def draw(self, vp):
-        vp.blit(self.bg, (0, 0))
-        vp.blit(self.cabeza, (90, 100))
-        vp.blit(self.game_surface, (28, 14))
+    def update(self, dt):
+        if(eventhandler.isKeyDown(pygame.K_z)):
+            self.game.change_stage(Partida(self.game))
+
+class Partida(Stage):
+    def __init__(self, game):
+        Stage.__init__(self, viewport.Fit(196, 176), game)
+        self.bg = pygame.image.load("./Assets/game_bg.tga")
+
+    def draw(self):
+        self.surface.blit(self.bg, (0, 0))
 
     def update(self, dt):
         pass
