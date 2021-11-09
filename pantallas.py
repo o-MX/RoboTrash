@@ -11,8 +11,8 @@ class Stage:
         self.surface = viewport.surface
         self.game = game
 
-    def draw(self, sf):
-        sf.fill(self.bg)
+    def draw(self):
+        self.surface.fill(self.bg)
 
     def update(self, dt):
         pass
@@ -24,8 +24,11 @@ class Inicio(Stage):
         # pygame.mixer.music.play(3)
         self.text = "Presiona Z para iniciar"
 
+    def draw(self):
+        self.surface.blit(assets.bg_main, (0, 0))
+        self.surface.blit(assets.title_sprite, (20, 20))
         rendered_txt = assets.dogicapixel_font.render(self.text, False, 0)
-        self.surface.blit(rendered_txt, (20, 100))
+        self.surface.blit(rendered_txt, (30, 100))
         self.surface.blit(assets.head_sprite, (75, 120))
 
     def update(self, dt):
