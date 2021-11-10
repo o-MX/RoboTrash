@@ -1,3 +1,4 @@
+from typing import Text
 import pygame, sys
 import utils
 import eventhandler
@@ -11,8 +12,8 @@ class Stage:
         self.surface = viewport.surface
         self.game = game
 
-    def draw(self, sf):
-        sf.fill(self.bg)
+    def draw(self):
+        self.surface.fill(self.bg)
 
     def update(self, dt):
         pass
@@ -22,15 +23,17 @@ class Inicio(Stage):
         Stage.__init__(self, viewport.Fit(196, 176), game)
         pygame.mixer.music.load('Assets/std_song.wav')
         # pygame.mixer.music.play(3)
-        self.text = "Presiona Z para iniciar"
-
-        rendered_txt = assets.dogicapixel_font.render(self.text, False, 0)
-        self.surface.blit(rendered_txt, (20, 100))
+        self.texto_A = utils.TextoAnimado("Presione x Para Iniciar", 1000)
+        self.texto_A.pos = (30, 100)
+        
+    def draw(self):
+        self.texto_A.render(self.surface)
         self.surface.blit(assets.head_sprite, (75, 120))
 
     def update(self, dt):
         if(eventhandler.isKeyDown(pygame.K_z)):
             self.game.change_stage(Partida(self.game))
+        self.texto_A.update(dt)
 
 class Partida(Stage):
     def __init__(self, game):
