@@ -39,4 +39,3 @@ while game.running:
     eventhandler.get()
     game.update()
     game.render()
-

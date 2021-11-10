@@ -38,10 +38,11 @@ class Inicio(Stage):
 class Partida(Stage):
     def __init__(self, game):
         Stage.__init__(self, viewport.Fit(196, 176), game)
-        self.bg = pygame.image.load("./Assets/game_bg.tga")
+        self.game_surface = pygame.Surface((80, 144))
 
     def draw(self):
-        self.surface.blit(self.bg, (0, 0))
+        self.surface.blit(assets.bg_game, (0, 0))
+        self.surface.blit(assets.head_sprite, (130, 130))
 
     def update(self, dt):
         pass
