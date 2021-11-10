@@ -1,27 +1,47 @@
 from typing import Text
 import pygame, sys
 import utils
+import eventhandler
+import viewport
+import assets
 
-class Inicio:
-    def __init__(self, game):
-        pygame.mixer.music.load('Assets/std_song.wav')
-        pygame.mixer.music.play(3)
+class Stage:
+    def __init__(self, viewport, game):
+        self.bg = (0, 0, 0)
+        self.viewport = viewport
+        self.surface = viewport.surface
         self.game = game
-        self.bg = pygame.image.load("./Assets/main_bg.png")
-        self.title = pygame.image.load("./Assets/title.png")
-        self.personje = pygame.image.load("./Assets/cabeza.png") 
-        self.personje = pygame.transform.scale(self.personje, (35,28))
+
+    def draw(self):
+        self.surface.fill(self.bg)
+
+    def update(self, dt):
+        pass
+
+class Inicio(Stage):
+    def __init__(self, game):
+        Stage.__init__(self, viewport.Fit(196, 176), game)
+        pygame.mixer.music.load('Assets/std_song.wav')
+        # pygame.mixer.music.play(3)
         self.texto_A = utils.TextoAnimado("Presione x Para Iniciar", 1000)
         self.texto_A.pos = (30, 100)
         
-    def draw(self, vp):
-        vp.blit(self.bg, (0, 0))
-        vp.blit(self.title, (20, 20))
-        vp.blit(self.personje, (70,120))
-        self.texto_A.render(vp)
+    def draw(self):
+        self.texto_A.render(self.surface)
+        self.surface.blit(assets.head_sprite, (75, 120))
 
     def update(self, dt):
-        if(utils.Events.isKeyDown(pygame.K_RETURN)):
-            self.game.changeStage(Inicio(self.game))
+        if(eventhandler.isKeyDown(pygame.K_z)):
+            self.game.change_stage(Partida(self.game))
         self.texto_A.update(dt)
 
+class Partida(Stage):
+    def __init__(self, game):
+        Stage.__init__(self, viewport.Fit(196, 176), game)
+        self.bg = pygame.image.load("./Assets/game_bg.tga")
+
+    def draw(self):
+        self.surface.blit(self.bg, (0, 0))
+
+    def update(self, dt):
+        pass

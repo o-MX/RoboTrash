@@ -1,20 +1,5 @@
 import pygame, sys
 
-class Events:
-    resize_event = []
-    pulsadas = []
-    quit = False
-
-    def get():
-        Events.pulsadas = pygame.event.get(pygame.KEYDOWN)
-        Events.quit = pygame.event.peek(pygame.QUIT)
-
-    def isKeyDown(key):
-        for k in Events.pulsadas:
-            if k.key == key:
-                return True
-        return False
-
 class TextoAnimado:
     def __init__(self,texto,tiempo):
         self.opacidad = 0
@@ -35,3 +20,14 @@ class TextoAnimado:
         if self.milisegundos > self.tiempo:
             self.milisegundos = 0
             self.aumento = -self.aumento
+
+class HealthIndicator:
+    def __init___(self):
+        self.sprite = None
+
+class Heart:
+    def __init__(self, status):
+        self.set_health(status)
+
+    def set_health(self, status):
+        self.stats = status
