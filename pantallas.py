@@ -33,7 +33,7 @@ class Inicio(Stage):
         self.surface.blit(assets.head_sprite, (75, 120))
 
     def update(self, dt):
-        if(eventhandler.isKeyDown(pygame.K_z)):
+        if(eventhandler.isKeyDown(pygame.K_x)):
             self.game.change_stage(Partida(self.game))
         self.texto_A.update(dt)
 
