@@ -37,7 +37,7 @@ class Inicio(Stage):
         self.cabeza.render(self.surface) #HEAD
 
     def update(self, dt):
-        if(eventhandler.isKeyDown(pygame.K_x)):
+        if(eventhandler.isKeyDown(pygame.K_z)):
             self.game.change_stage(Partida(self.game))
         self.texto_A.update(dt)
         self.cabeza.update()
