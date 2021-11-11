@@ -24,7 +24,7 @@ def load():
     global bg_game, bg_main
     global head_sprite, hearts_sprite
     global robort_sprite, title_sprite
-    global player_spritem, trashcans_sprite
+    global player_sprite, trashcans_sprite
     global trash_sprite
     # Load game sprites
     bg_game = pygame.image.load("./Assets/game_bg.tga")
