@@ -1,39 +1,37 @@
 import sys, pygame
-import eventhandler
+from pygame.time import Clock
 import assets
-import utils
-from stages.inicio import Inicio
+from src import eventhandler
+from src import viewports
+from src.stages.menu import Menu
 pygame.init()
-eventhandler.init()
 assets.load()
+eventhandler.init()
 
 class RoboTrash:
     def __init__(self):
         self.size = (700, 600)
         self.bg = (0, 0, 0)
         self.running = True
-        self.clock = pygame.time.Clock()
+        self.clock = Clock()
         # Creating the display
         flags = pygame.RESIZABLE
         self.display = pygame.display.set_mode(self.size, flags)
-        # Finally creating a viewport
-        self.viewport = utils.ViewportFit(self.display, (192, 176))
-        self.stage = Inicio(self.viewport, self)
+        self.viewport = viewports.Fit((192, 176), True)
+        self.stage = Menu()
     def update(self):
-        self.running = not eventhandler.quit
         self.clock.tick(60)
         dt = self.clock.get_time()
-        self.stage.act(dt)
+        eventhandler.get()
+        self.running = not eventhandler.quit
+        self.stage.act(self.viewport.surface, dt)
     def render(self):
-        self.display.fill(self.bg)
-        self.viewport.flip()
+        self.display.fill((0, 0, 0))
+        self.viewport.blit(self.display)
         pygame.display.flip()
-    def change_stage(self, stage):
-        self.stage = stage
 
 game = RoboTrash()
 
 while game.running:
-    eventhandler.get()
     game.update()
     game.render()

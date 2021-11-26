@@ -1,11 +1,12 @@
 import pygame, sys
+from pygame import event
 
 _pressed = []
 quit = False
 
 def init():
-    pygame.event.set_blocked(None)
-    pygame.event.set_allowed([
+    event.set_blocked(None)
+    event.set_allowed([
         pygame.KEYDOWN,
         pygame.KEYUP,
         pygame.VIDEORESIZE,
@@ -16,8 +17,8 @@ def init():
 
 def get():
     global _pressed, quit
-    _pressed = pygame.event.get(pygame.KEYDOWN)
-    quit = pygame.event.peek(pygame.QUIT)
+    _pressed = event.get(pygame.KEYDOWN)
+    quit = event.peek(pygame.QUIT)
 
 def isKeyDown(key):
     global _pressed
