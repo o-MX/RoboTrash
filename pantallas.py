@@ -41,30 +41,3 @@ class Inicio(Stage):
             self.game.change_stage(Partida(self.game))
         self.texto_A.update(dt)
         self.cabeza.update()
-
-class Partida(Stage):
-    def __init__(self, game):
-        Stage.__init__(self, viewport.Fit(192, 176), game)
-        self.game_surface = pygame.Surface((80, 144))
-        self.robort = Robort(self.game_surface.get_height() - 15)
-        self.health_indicator = utils.HealthIndicator()
-
-    def draw(self):
-        self.surface.blit(assets.bg_game, (0, 0))
-        self.surface.blit(assets.head_sprite, (130, 130))
-        self.surface.blit(self.health_indicator.surface, (135, 100))
-        self.game_surface.fill((255, 255, 255))
-        self.game_surface.blit(self.robort.sprite, self.robort.pos)
-        self.surface.blit(self.game_surface, (32, 16))
-
-    def update(self, dt):
-        if eventhandler.isKeyDown(pygame.K_z):
-            self.robort.rotate()
-            self.health_indicator.take_damage(0.5)
-        if eventhandler.isKeyDown(pygame.K_RIGHT):
-            self.robort.move_right()
-        elif eventhandler.isKeyDown(pygame.K_LEFT):
-            self.robort.move_left()
-        if self.health_indicator.health <= 0:
-            self.game.change_stage(pantallas.Inicio(self.game))
-
