@@ -1,6 +1,7 @@
 import sys, pygame
 from pygame.time import Clock
 import assets
+import src
 from src import eventhandler
 from src import viewports
 from src.stages.menu import Menu
@@ -17,7 +18,7 @@ class RoboTrash:
         # Creating the display
         flags = pygame.RESIZABLE
         self.display = pygame.display.set_mode(self.size, flags)
-        self.viewport = viewports.Fit((192, 176), True)
+        self.viewport = viewports.Fit(src.SCREEN_SIZE, True)
         self.stage = Menu()
     def update(self):
         self.clock.tick(60)
