@@ -1,3 +1,4 @@
+import math
 from pygame import Rect
 from pygame.sprite import Sprite
 from pygame import transform
@@ -18,11 +19,16 @@ class Head(Sprite):
         Sprite.__init__(self)
         self.image = assets.head
         self.time = 0
-
         self.rect = self.image.get_rect()
         self.rect.x = (192 - self.rect.width)/2
+        self.rect.x -= 12
         self.rect.y = 176 - self.rect.height
         self.rect.y -= 25
+    def update(self, dt):
+        self.time += dt
+        if self.time > 1000:
+            self.time = 0
+        ang = self.time * math.pi * 2 / 1000
 
 class Menu(Stage):
     def __init__(self):
