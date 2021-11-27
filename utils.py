@@ -63,4 +63,3 @@ class MoveImg:
         if self.coord_x > 80 or self.coord_x < 70:
             self.moveimg = self.moveimg * -1
         self.coord_x += self.moveimg
-

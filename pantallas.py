@@ -23,7 +23,7 @@ class Inicio(Stage):
     def __init__(self, game):
         Stage.__init__(self, viewport.Fit(196, 176), game)
         pygame.mixer.music.load('Assets/std_song.wav')
-        pygame.mixer.music.play(3)
+        # pygame.mixer.music.play(3)
         self.texto_A = utils.TextoAnimado("Presione Z Para Iniciar", 900)
         self.texto_A.pos = (30, 100)
         self.cabeza = utils.MoveImg() #HEAD
@@ -66,5 +66,36 @@ class Partida(Stage):
         elif eventhandler.isKeyDown(pygame.K_LEFT):
             self.robort.move_left()
         if self.health_indicator.health <= 0:
-            self.game.change_stage(pantallas.Inicio(self.game))
+            self.game.change_stage(pantallas.GameOver(self.game))
+
+
+class GameOver(Stage):
+    def __init__(self, game):
+        Stage.__init__(self, viewport.Fit(196, 176), game)
+        self.texto_A = utils.TextoAnimado("Game Over", 900)
+        self.texto_A.pos = (30, 30)
+        self.exit = utils.MoveImg() #HEAD
+        self.exit.coord_x = 55 #HEAD
+        self.exit.coord_y = 100 #HEAD
+        self.retry = utils.MoveImg() #HEAD
+        self.retry.coord_x = 75 #HEAD
+        self.retry.coord_y = 120 #HEAD
+
+    def draw(self):
+        self.texto_A = utils.TextoAnimado("Game Over", 900)
+        self.texto_A.pos = (30, 30)
+        self.surface.blit(assets.bg_main, (0, 0))
+        self.retry.render(self.surface)
+        self.exit.render(self.surface)
+
+    def update(self, dt):
+        if(eventhandler.isKeyDown(pygame.K_z)):
+            self.game.change_stage(Partida(self.game))
+        self.texto_A.update(dt)
+        self.exit.update()
+        self.retry.update()
+
+    def exit(self,game):
+        self.retry
+        self.exit
 

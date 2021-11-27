@@ -12,6 +12,8 @@ robort_sprite = None
 title_sprite = None
 trash_sprite = None
 trashcans_sprite = None
+exit_sprite = None
+retry_sprite = None
 
 # Load all game assets
 def load():
@@ -26,6 +28,8 @@ def load():
     global robort_sprite, title_sprite
     global player_sprite, trashcans_sprite
     global trash_sprite
+    global exit_sprite
+    global retry_sprite
     # Load game sprites
     bg_game = pygame.image.load("./Assets/game_bg.tga")
     bg_main = pygame.image.load("./Assets/main_bg.tga")
@@ -36,3 +40,5 @@ def load():
     title_sprite = pygame.image.load("./Assets/title.tga")
     trash_sprite = pygame.image.load("./Assets/trash.tga")
     trashcans_sprite = pygame.image.load("./Assets/trashcans.tga")
+    exit_sprite = pygame.image.load("./Assets/exit.tga")
+    retry_sprite = pygame.image.load("./Assets/retry.tga")
