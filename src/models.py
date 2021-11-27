@@ -2,8 +2,8 @@ from pygame import Rect, Surface
 from pygame import transform, sprite
 
 def _center_viewport(vpRect, sfRect):
-    vpRect.x = (sfRect.width - vpRect.width) / 2
-    vpRect.y = (sfRect.height - vpRect.height) / 2
+    vpRect.centerx = sfRect.width / 2
+    vpRect.centery = sfRect.height / 2
 
 class Viewport:
     def __init__(self, size, center):

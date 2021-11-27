@@ -27,7 +27,7 @@ class RoboTrash:
         self.running = not eventhandler.quit
         self.stage.act(self.viewport.surface, dt)
     def render(self):
-        self.display.fill((0, 0, 0))
+        self.display.fill(src.BLACK)
         self.viewport.blit(self.display)
         pygame.display.flip()
 

@@ -7,4 +7,3 @@ class Fit(Viewport):
     def resize(self, dest):
         self.rect = self.rect.fit(dest)
         return scale(self.surface, (self.rect.width, self.rect.height))
-
