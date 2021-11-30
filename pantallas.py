@@ -24,6 +24,7 @@ class Inicio(Stage):
         Stage.__init__(self, viewport.Fit(196, 176), game)
         pygame.mixer.music.load('Assets/std_song.wav')
         # pygame.mixer.music.play(3)
+
         self.texto_A = utils.TextoAnimado("Presione Z Para Iniciar", 900)
         self.texto_A.pos = (30, 100)
         self.cabeza = utils.MoveImg() #HEAD
@@ -39,6 +40,7 @@ class Inicio(Stage):
     def update(self, dt):
         if(eventhandler.isKeyDown(pygame.K_z)):
             self.game.change_stage(Partida(self.game))
+            pygame.mixer.music.set_volume(0.0)
         self.texto_A.update(dt)
         self.cabeza.update()
 
