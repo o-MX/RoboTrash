@@ -19,7 +19,7 @@ class RoboTrash:
         flags = pygame.RESIZABLE
         self.display = pygame.display.set_mode(self.size, flags)
         self.viewport = viewports.Fit(src.SCREEN_SIZE, True)
-        self.stage = Menu()
+        self.stage = Menu(self.viewport.surface)
     def update(self):
         self.clock.tick(60)
         dt = self.clock.get_time()

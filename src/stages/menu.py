@@ -53,17 +53,16 @@ class Text(Sprite):
         self.image.set_alpha(ease * 255)
 
 class Menu(Stage):
-    def __init__(self):
+    def __init__(self, surface):
         Stage.__init__(self)
         self.bg = assets.bg_main
+        surface.blit(self.bg, (0, 0))
         self.actors.add(Title())
         self.actors.add(Head())
         self.actors.add(Text())
         music.load("./assets/std_song.wav")
         music.play()
-        
     def act(self, surface, dt):
-        surface.blit(self.bg, self.bg.get_rect())
         Stage.act(self, surface, dt)
         if eventhandler.isKeyDown(pygame.K_z):
-            print("Hola")
+            music.stop()
