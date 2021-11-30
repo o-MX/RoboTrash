@@ -4,7 +4,7 @@ import assets
 import src
 from src import eventhandler
 from src import viewports
-from src.stages.story import Story
+from src.stages import Menu as Main
 pygame.init()
 assets.load()
 eventhandler.init()
@@ -19,7 +19,7 @@ class RoboTrash:
         flags = pygame.RESIZABLE
         self.display = pygame.display.set_mode(self.size, flags)
         self.viewport = viewports.Fit(src.SCREEN_SIZE, True)
-        self.stage = Story(self.viewport.surface)
+        self.stage = Main(self.viewport.surface)
     def update(self):
         self.clock.tick(60)
         dt = self.clock.get_time()

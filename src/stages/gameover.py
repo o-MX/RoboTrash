@@ -1,7 +1,4 @@
-import src
-import math
-import assets
-import pygame
+import src, math, assets, pygame
 from src import eventhandler
 from pygame import Rect
 from pygame.sprite import Sprite
