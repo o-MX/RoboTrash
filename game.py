@@ -18,6 +18,11 @@ class EventManager:
                     evL()
     def quit(self):
         pygame.event.post(pygame.event.Event(pygame.QUIT))
+    def isKeyDown(self, key_code):
+        for k in self._keysDown:
+            if k.key == key_code:
+                return True
+        return False
     def change_scene(self, scene_id):
         for evL in self.onChangeScene:
             evL(scene_id)
