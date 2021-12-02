@@ -1,48 +1,57 @@
-import pygame, sys
-import events, viewports, assets
-import constants as c
+import pygame
+import viewport
+import scenes
 pygame.init()
-assets.load()
 
-class MainScene():
-    def __init__(self, game):
-        self.sprites = pygame.sprite.Group()
-        self.bg = assets.bg_main
-        self.game = game
-        self.title_rect = assets.title.get_rect()
-        self.title_rect.centerx = game.size[0] / 2
-        self.title_rect.y = 10
-    def act(self, dt):
-        pass
-    def draw(self, surface):
-        surface.blit(assets.title, self.title_rect)
-        pass
+class EventManager:
+    def __init__(self):
+        self._keysDown= []
+        self.onQuit = []
+        self.onChangeScene = []
+    def handle(self):
+        self._keysDown.clear()
+        for e in pygame.event.get():
+            if e.type == pygame.KEYDOWN:
+                self._keysDown.append(e)
+            elif e.type == pygame.QUIT:
+                for evL in self.onQuit:
+                    evL()
+    def quit(self):
+        pygame.event.post(pygame.event.Event(pygame.QUIT))
+    def change_scene(self, scene_id):
+        for evL in self.onChangeScene:
+            evL(scene_id)
 
 class Game:
-    def __init__(self, size):
-        self.size = size
-        self._display = pygame.display.set_mode(
-            (700, 600), pygame.RESIZABLE)
+    def __init__(self):
+        self.size = (192, 176)
+        self.fps = 60
+        self.bgColor = 0, 0, 0
+        self.clock = pygame.time.Clock()
         self.running = True
-        self._clock = pygame.time.Clock()
-        self._viewport = viewports.Fit(size)
-        self._fps = 60
-        self._scene = MainScene(self)
+        self.surface = pygame.Surface(self.size)
+        self.eventManager = EventManager()
+        self.eventManager.onQuit.append(self.quit_game)
+        self.eventManager.onChangeScene.append(self.change_scene)
+        self.scene = scenes.get("main", self)
     def update(self):
-        self._clock.tick(self._fps)
-        self.running = not pygame.event.peek(pygame.QUIT)
-        self._viewport.display(self._display)
-        self._scene.act(self._clock.get_time())
-        self._scene.draw(self._viewport.surface)
-    def change_scene(scene):
-        self.scene = scene
+        self.clock.tick(self.fps)
+        self.eventManager.handle()
+        self.scene.update(self.clock.get_time())
+    def draw(self):
+        self.scene.draw(self.surface)
+    def quit_game(self):
+        self.running = False
+    def change_scene(self, id):
+        self.scene = scenes.get(id, self)
 
-def main():
-    game = Game((176, 192))
-    while game.running:
-        events.handle()
-        game.update()
-        pygame.display.flip()
+display = pygame.display.set_mode((700, 600), pygame.RESIZABLE)
+game = Game()
+while game.running:
+    game.update()
+    game.draw()
+    viewport.Fit(game.surface, display)
+    pygame.display.flip()
 
-if __name__ == '__main__':
-    main()
+pygame.quit()
+exit()
