@@ -1,9 +1,13 @@
 import scenes.main
 import scenes.gameover
+import scenes.gameplay
+import scenes.story
 
 _scenes = {
     "main": main.Stage,
-    "game_over": gameover.Stage
+    "game_over": gameover.Stage,
+    "story": story.Stage,
+    "gameplay": gameplay.Stage,
 }
 
 def get(scene_name, game):

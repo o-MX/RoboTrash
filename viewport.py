@@ -1,6 +1,6 @@
 import pygame
 
-def Fit(surface: pygame.Surface, display: pygame.Surface):
+def Fit(surface, display):
     surfaceRect = surface.get_rect()
     displayRect = display.get_rect()
 

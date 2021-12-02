@@ -38,7 +38,7 @@ class Game:
         self.eventManager = EventManager()
         self.eventManager.onQuit.append(self.quit_game)
         self.eventManager.onChangeScene.append(self.change_scene)
-        self.scene = scenes.get("main", self)
+        self.eventManager.change_scene("main")
     def update(self):
         self.clock.tick(self.fps)
         self.eventManager.handle()
@@ -49,6 +49,7 @@ class Game:
         self.running = False
     def change_scene(self, id):
         self.scene = scenes.get(id, self)
+        self.scene.start()
 
 display = pygame.display.set_mode((700, 600), pygame.RESIZABLE)
 game = Game()
