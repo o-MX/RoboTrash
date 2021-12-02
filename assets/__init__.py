@@ -16,16 +16,16 @@ trashcans = None
 # Load all game assets
 def load():
     global six_pixel, dogicapixel, pixelart
-    # Load ingame fonts
-    six_pixel = pygame.font.Font("./assets/6px_normal.ttf", 8)
-    dogicapixel = pygame.font.Font("./assets/dogicapixel.ttf", 8)
-    pixelart = pygame.font.Font("./assets/pixelart.ttf", 8)
-
     global bg_game, bg_main
     global head, hearts
     global robort, title
     global player, trashcans
     global trash
+    # Load ingame fonts
+    six_pixel = pygame.font.Font("./assets/6px_normal.ttf", 8)
+    dogicapixel = pygame.font.Font("./assets/dogicapixel.ttf", 8)
+    pixelart = pygame.font.Font("./assets/pixelart.ttf", 8)
+
     # Load game sprites
     bg_game = pygame.image.load("./assets/game_bg.tga")
     bg_main = pygame.image.load("./assets/main_bg.tga")
