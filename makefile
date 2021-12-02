@@ -1,2 +1,4 @@
+FILE = game.py
+
 all:
-	python3 game.py
+	python3 $(FILE)

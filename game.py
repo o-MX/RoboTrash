@@ -1,36 +1,23 @@
-from pygame import *
-from utils import *
-from stages import menu, story, gameover
-import events
-import assets
+import pygame, sys
 import viewports
-init()
-events.init()
-assets.load()
+import stages
+import constants as c
 
-SCREEN_SIZE = (700, 600)
-VIEWPORT_SIZE = (192, 176)
-BACKGROUND_COLOR = BLACK
-FPS = 60
+SCREEN = pygame.display.set_mode(c.SCREEN_SIZE, c.FLAGS)
 
 def main():
-    clock = time.Clock()
-    screen = display.set_mode(SCREEN_SIZE, RESIZABLE)
-    viewport = viewports.Fit(VIEWPORT_SIZE, True)
-    stage = menu.Menu(viewport.surface)
+    running = True
+    clock = pygame.time.Clock()
+    viewport = viewports.Fit(c.SIZE)
+    stage = None
 
-    while not events.check(events.QUIT):
-        events.update()
-        change = events.check(events.CHANGE_STAGE)
-        if change:
-            stage = change.stage
-        clock.tick(FPS)
-        stage.act(viewport.surface, clock.get_time())
+    while running:
+        running = not pygame.event.peek(pygame.QUIT)
+        change_req = pygame.event.get(c.CHANGE_SCREEN)
+        if change_req:
+            stage = change_req.stage
+        viewport.display(SCREEN)
+        pygame.display.flip()
 
-        viewport.display(screen)
-        display.flip()
-    quit()
-    exit()
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
