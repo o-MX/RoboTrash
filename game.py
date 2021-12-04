@@ -1,62 +1,55 @@
 import pygame
+pygame.init()
 import viewport
 import scenes
-pygame.init()
 
 class EventManager:
     def __init__(self):
         self._keysDown= []
-        self.onQuit = []
-        self.onChangeScene = []
+        self.quit = False
     def handle(self):
         self._keysDown.clear()
         for e in pygame.event.get():
             if e.type == pygame.KEYDOWN:
                 self._keysDown.append(e)
             elif e.type == pygame.QUIT:
-                for evL in self.onQuit:
-                    evL()
-    def quit(self):
-        pygame.event.post(pygame.event.Event(pygame.QUIT))
+                self.quit = True
     def isKeyDown(self, key_code):
         for k in self._keysDown:
             if k.key == key_code:
                 return True
         return False
-    def change_scene(self, scene_id):
-        for evL in self.onChangeScene:
-            evL(scene_id)
 
 class Game:
     def __init__(self):
-        self.size = (192, 176)
+        self.size = (160, 160)
         self.fps = 60
         self.bgColor = 0, 0, 0
         self.clock = pygame.time.Clock()
         self.running = True
         self.surface = pygame.Surface(self.size)
-        self.eventManager = EventManager()
-        self.eventManager.onQuit.append(self.quit_game)
-        self.eventManager.onChangeScene.append(self.change_scene)
-        self.eventManager.change_scene("main")
+        self.events = EventManager()
+        self.change_scene("main")
+
     def update(self):
         self.clock.tick(self.fps)
-        self.eventManager.handle()
-        self.scene.update(self.clock.get_time())
-    def draw(self):
-        self.scene.draw(self.surface)
-    def quit_game(self):
-        self.running = False
-    def change_scene(self, id):
-        self.scene = scenes.get(id, self)
-        self.scene.start()
+        self.running = not self.events.quit
+        self.events.handle()
+        self.scene.update(self)
 
-display = pygame.display.set_mode((700, 600), pygame.RESIZABLE)
+    def draw(self, display):
+        self.scene.draw(self.surface)
+        viewport.Fit(game.surface, display)
+
+    def change_scene(self, scene_id):
+        self.scene = scenes.get(scene_id)
+
+SCREEN_SIZE = (700, 600)
+display = pygame.display.set_mode(SCREEN_SIZE, pygame.RESIZABLE)
 game = Game()
 while game.running:
     game.update()
-    game.draw()
-    viewport.Fit(game.surface, display)
+    game.draw(display)
     pygame.display.flip()
 
 pygame.quit()
