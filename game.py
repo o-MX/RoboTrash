@@ -7,6 +7,7 @@ class EventManager:
     def __init__(self):
         self._keysDown= []
         self.quit = False
+
     def handle(self):
         self._keysDown.clear()
         for e in pygame.event.get():
@@ -14,6 +15,7 @@ class EventManager:
                 self._keysDown.append(e)
             elif e.type == pygame.QUIT:
                 self.quit = True
+
     def isKeyDown(self, key_code):
         for k in self._keysDown:
             if k.key == key_code:
@@ -38,6 +40,7 @@ class Game:
         self.scene.update(self)
 
     def draw(self, display):
+        self.surface.fill((0, 0, 0))
         self.scene.draw(self.surface)
         viewport.Fit(game.surface, display)
 

@@ -4,28 +4,29 @@ class Ease:
     def __init__(self,
                  miliseconds,
                  function,
+                 max_value,
                  loop = False):
         self.easing = True
         self.ms = miliseconds
         self.funct= function
         self.time = 0
         self.loop = loop
+        self.max = max_value
         self.val = 0
-    def update(self, dt, queue):
-        self.time += dt
-        if self.time > self.ms:
-            if self.loop:
-                self.time = 0
+    def update(self, dt):
+        if self.easing:
+            self.time += dt
+            if self.time > self.ms:
+                if self.loop:
+                    self.time = 0
+                else:
+                    self.easing = False
             else:
-                self.easing = False
-                queue.remove(self)
-        else:
-            x = self.time / self.ms
-            self.val = self.funct(x) * 255
-    def restart(self, queue):
+                x = self.time / self.ms
+                self.val = self.funct(x) * self.max
+    def restart(self):
         self.easing = True
         self.time = 0
-        queue.append(self)
 
 def sinEaseIn(x):
     return math.sin(math.pi * x)
