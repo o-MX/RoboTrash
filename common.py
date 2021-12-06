@@ -36,10 +36,8 @@ class AnimatedSprite(SpriteSheet):
             else:
                 self.tile(self.frame, self.row)
 
-    def restart(self):
-        self.frame = 0
-
     def play(self):
+        self.frame = 0
         self.animating = True
 
     def loop(self, looping):
