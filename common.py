@@ -14,14 +14,14 @@ class SpriteSheet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
     def tile(self, i, j):
-        self.spritepos.x = int(i) * self.spritepos.width
-        self.spritepos.y = int(j) * self.spritepos.height
+        self.spritepos.x = int(j) * self.spritepos.width
+        self.spritepos.y = int(i) * self.spritepos.height
         self.image = self.spritesheet.subsurface(self.spritepos)
 
 class AnimatedSprite(SpriteSheet):
     def __init__(self, image, tile, frames, row):
         super().__init__(image, tile)
-        self.tile(0, row)
+        self.tile(row, 0)
         self.frame = 0
         self.row = row
         self.frames = frames
@@ -34,7 +34,7 @@ class AnimatedSprite(SpriteSheet):
             if self.frame > self.frames or self.frame < 0:
                 self.animating = False or self.looping
             else:
-                self.tile(self.frame, self.row)
+                self.tile(self.row, self.frame)
 
     def play(self):
         self.frame = 0
