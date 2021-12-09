@@ -43,7 +43,7 @@ class Scene(common.Scene):
         super().update(game)
         if game.events.isKeyDown(pygame.K_z):
             music.stop()
-            game.change_scene("gameplay")
+            game.change_scene("story")
 
     def draw(self, surface):
         super().draw(surface)
