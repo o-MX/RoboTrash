@@ -5,7 +5,7 @@ import scenes.story
 
 _scenes = {
     "main": main.Scene,
-    "game_over": gameover.Scene,
+    "gameover": gameover.Scene,
     "story": story.Scene,
     "gameplay": gameplay.Scene,
 }

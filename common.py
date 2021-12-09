@@ -22,35 +22,31 @@ class AnimatedSprite(SpriteSheet):
     def __init__(self, image, tile, frames, row):
         super().__init__(image, tile)
         self.tile(row, 0)
-        self.frame = 0
-        self.row = row
-        self.frames = frames
+        self._frame = 0
+        self._frames = frames
         self.looping = False
         self.animating = False
+        self._row = 0
 
     def update(self, speed):
         if self.animating:
-            self.frame += 1 * speed
-            if self.frame > self.frames or self.frame < 0:
-                self.animating = False or self.looping
-            else:
-                self.tile(self.row, self.frame)
+            self.tile(self._row, self._frame)
+            self._frame += 1 * speed
+            self.animating = self._frame <= self._frames or self.looping
 
-    def play(self):
-        self.frame = 0
+    def play(self, row = 0, frame = 0):
+        self._frame = frame
+        self._row = row
         self.animating = True
-
-    def loop(self, looping):
-        self.looping = looping
 
 class TextSprite(sprite.Sprite):
     def __init__(self, text, color, font_size):
         super().__init__()
         self.font = font.Font("assets/font2.ttf", font_size)
-        self.color = color
-        self.text = text
         self.image = self.font.render(text, False, color)
         self.rect = self.image.get_rect()
+        self.color = color
+        self.text = text
 
     def redraw(self):
         self.image = self.font.render(self.text, False, self.color)
